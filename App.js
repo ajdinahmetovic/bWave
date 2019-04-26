@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native';
 import Wave from "./components/Wave";
 
 var width = Dimensions.get('window').width;
@@ -10,20 +10,26 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
 
-        <View>
-        </View>
+          <View style={{height: 102.17, width: width, flexDirection: 'row', backgroundColor: '#524FA1', alignItems: 'center'}}>
 
-        <Wave ref={ref=>this._waveRect = ref}
-              style={styles.wave}
-              H={100}
-              waveParams={[
+              <TouchableOpacity style={{width: 32.63, height: 18.77, marginLeft: 11.7}}>
 
-                {A: 69, T: width, fill: '#62c2ff'},
-                {A: 100, T: width + 10, fill: '#0087dc'},
-                {A: 80, T: width +20, fill: '#1aa7ff'},
+                  <Image style={{width: 32.63, height: 18.77}} source={require('./assets/hamburger.png')}>
 
-              ]}
-              animated={true}/>
+                  </Image>
+
+              </TouchableOpacity>
+
+              <View style={{width: width - 32.63 - 11.7 - 26.67 - 16.3, height: 102.17, alignItems: 'center', justifyContent: 'center'}}>
+
+                  <Text style={{color: 'white', fontSize: 25}}>
+                      bWave
+                  </Text>
+
+              </View>
+
+          </View>
+
       </View>
     );
   }
@@ -33,8 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+
   },
 
   wave: {
