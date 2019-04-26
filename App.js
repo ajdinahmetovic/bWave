@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
                 {A: 69, T: width, fill: '#62c2ff'},
                 {A: 100, T: width + 10, fill: '#0087dc'},
-                {A: 130, T: width + 0, fill: '#1aa7ff'},  
+                {A: 80, T: width +20, fill: '#1aa7ff'},
 
               ]}
               animated={true}/>
