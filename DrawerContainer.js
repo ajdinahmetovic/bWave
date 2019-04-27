@@ -79,7 +79,7 @@ export default class DrawerContainer extends React.Component {
 
 
     playMusic(){
-        this.props.navigation.replace('MusicPlayer')
+        this.props.navigation.replace('MusicPlayer1')
     }
 
 

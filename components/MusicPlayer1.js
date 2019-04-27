@@ -184,8 +184,8 @@ export default class MusicPlayer extends React.Component {
         />
 
         <Slider
-          trackStyle={{ backgroundColor: "#EEAA04" }}
-          thumbStyle={{ backgroundColor: "#0087DC" }}
+          thlumbStype={{ backgroundColor: "#EEAA04" }}
+          trackStype={{ backgroundColor: "#0087DC" }}
           style={styles.slider}
           minimumValue={0}
           maximumValue={30000}

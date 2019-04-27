@@ -51,6 +51,20 @@ export default class Chart extends React.Component {
                 this.setState({data: data})
             }
         })
+
+        firebase.database().ref("dev").on("value", result => {
+            if (result.val() != null) {
+
+                let sum = result.val().iee_chan_af3 + result.val().iee_chan_af4 + result.val().iee_chan_pz + result.val().iee_chan_t7 + result.val().iee_chan_t8;
+
+                let value = Math.round(100 * (sum / 20))
+
+                this.setState({status: {
+                    value: value,
+                    color: (value >= 80 ? "green" : (value >= 50 ? "orange" : "red"))
+                }})
+            }
+        })
     }
 
 
