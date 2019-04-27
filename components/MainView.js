@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Animated, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Animated, Dimensions, TouchableOpacity, Image, Easing } from 'react-native';
 import {Font} from "expo";
 import Wave from "../components/Wave";
+import * as config from "../APIKeys"
+import * as firebase from "firebase"
 
 
 var width = Dimensions.get('window').width;
@@ -17,8 +19,16 @@ export default class MainView extends React.Component {
                 value: 0,
             },
 
-            scaleVal: new Animated.Value(1),
+            animated: false,
+            scaleVal: new Animated.Value(1)
         }
+
+        firebase.initializeApp(config.default)
+        firebase.database().ref("dev").on("value", result => {
+            if (result.val() != null) {
+                console.log(result.val()[1])
+            }
+        })
     }
 
     async componentDidMount() {
@@ -28,7 +38,13 @@ export default class MainView extends React.Component {
             'montserrat-thin': require('../assets/Montserrat-Thin.ttf'),
         });
     }
+    componentWillMount() {
+        this.setState({animated: true})
+    }
 
+    componentWillUnmount() {
+        this.setState({animated: false})
+    }
 
 
     render() {
@@ -64,13 +80,13 @@ export default class MainView extends React.Component {
                           {A: 30, T: width, fill: 'rgba(255, 255, 255, 1)'},
 
                       ]}
-                      animated={true}
+                      animated={this.state.animated}
                     //speed={5000}
 
                 />
 
 
-                <Animated.View style={[styles.buttonBack, {width: 240,height: 240, scaleXY: this.state.scale}]}>
+                <Animated.View style={[styles.buttonBack, {width: 240,height: 240,transform: [{scale: this.state.scaleVal}]}]}>
                 </Animated.View>
 
 
@@ -78,21 +94,27 @@ export default class MainView extends React.Component {
                     <Image style={{width: 174, height: 174}} source={require('../assets/play.png')}/>
                 </TouchableOpacity>
 
+                <View style={{width: width, height: 40, alignItems: 'center', justifyContent: 'center', marginTop: 50}}>
+
+                    <Text style={{fontFamily: 'montserrat-thin', fontSize: 33, color: '#524FA1'}}>
+                        Start the wave!
+                    </Text>
+
+                </View>
+
             </View>
         );
     }
 
     startWave = () =>{
 
-        this.props.musicPlay();
-
-        Animated.timing(                  // Animate over time
-            this.state.scaleVal,            // The animated value to drive
-            {
-                toValue: 500,                   // Animate to opacity: 1 (opaque)
-                duration: 1000,              // Make it take a while
-            }
-        ).start();
+        Animated.timing(this.state.scaleVal, {
+            toValue: 4,
+            duration: 500,
+            easing: Easing.linear
+        }).start(() =>{
+            this.props.musicPlay()
+        });
 
     };
 

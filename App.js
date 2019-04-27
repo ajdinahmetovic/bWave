@@ -5,6 +5,8 @@ import {createStackNavigator, createAppContainer} from 'react-navigation'
 import { Font } from 'expo';
 import DrawerContainer from "./DrawerContainer";
 import MusicPlayer from "./components/MusicPlayer";
+import Chart from "./components/Chart";
+
 
 var width = Dimensions.get('window').width;
 var  height = Dimensions.get('window').height;
@@ -18,6 +20,10 @@ const Routes = createStackNavigator ({
     MusicPlayer: {
         screen: MusicPlayer
     },
+
+    Chart: {
+        screen: Chart
+    }
 
 
 
