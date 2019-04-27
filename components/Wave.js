@@ -145,8 +145,8 @@ class Wave extends React.PureComponent {
         this.stopAnim();
 
         const {
-            speed = 5000,
-            speedIncreasePerWave = 1000,
+            speed = 9000,
+            speedIncreasePerWave = 700,
             easing = 'linear'
         } = this.props
 

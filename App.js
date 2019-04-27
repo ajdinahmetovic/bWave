@@ -1,36 +1,51 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native';
-import Wave from "./components/Wave";
+import {createStackNavigator, createAppContainer} from 'react-navigation'
+
+import { Font } from 'expo';
+import DrawerContainer from "./DrawerContainer";
+import MusicPlayer from "./components/MusicPlayer";
 
 var width = Dimensions.get('window').width;
 var  height = Dimensions.get('window').height;
 
-export default class App extends React.Component {
+
+const Routes = createStackNavigator ({
+
+    DrawerContainer: {
+        screen: DrawerContainer
+    },
+    MusicPlayer: {
+        screen: MusicPlayer
+    },
+
+
+
+
+
+
+
+});
+
+ class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state={
+
+        };
+
+    }
+
+
+
+
+
   render() {
+
     return (
-      <View style={styles.container}>
-
-          <View style={{height: 102.17, width: width, flexDirection: 'row', backgroundColor: '#524FA1', alignItems: 'center'}}>
-
-              <TouchableOpacity style={{width: 32.63, height: 18.77, marginLeft: 11.7}}>
-
-                  <Image style={{width: 32.63, height: 18.77}} source={require('./assets/hamburger.png')}>
-
-                  </Image>
-
-              </TouchableOpacity>
-
-              <View style={{width: width - 32.63 - 11.7 - 26.67 - 16.3, height: 102.17, alignItems: 'center', justifyContent: 'center'}}>
-
-                  <Text style={{color: 'white', fontSize: 25}}>
-                      bWave
-                  </Text>
-
-              </View>
-
-          </View>
-
-      </View>
+        <DrawerContainer/>
     );
   }
 }
@@ -42,17 +57,7 @@ const styles = StyleSheet.create({
 
   },
 
-  wave: {
-    width: width,
-    aspectRatio: 1,
-    overflow: 'hidden',
-    backgroundColor: 'white',
-  },
-  waveBall: {
-    width: '100%',
-    aspectRatio: 1,
-    borderRadius: 50,
-    overflow: 'hidden',
-  }
-
 });
+
+
+export default createAppContainer(Routes);
