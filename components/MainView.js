@@ -23,10 +23,15 @@ export default class MainView extends React.Component {
             scaleVal: new Animated.Value(1)
         }
 
-        firebase.initializeApp(config.default)
+        if (firebase.app.length) firebase.initializeApp(config.default)
+
         firebase.database().ref("dev").on("value", result => {
             if (result.val() != null) {
-                console.log(result.val()[1])
+                let sum = result.val().iee_chan_af3 + result.val().iee_chan_af4 + result.val().iee_chan_pz + result.val().iee_chan_t7 + result.val().iee_chan_t8;
+
+                let value = Math.round(100 * (sum / 20))
+
+                
             }
         })
     }
