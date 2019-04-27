@@ -276,7 +276,7 @@ export default class MusicPlayer extends React.Component {
           onPress={this.pressed}>
             <Image
               style={{ width: 60, height: 60 }}
-              source={this.state.s == 1 ? require("../assets/playIco.png") : require("../assets/playIco.png")}
+              source={this.state.s == 1 ? require("../assets/playIco.png") : require("../assets/pause.png")}
             />
           </TouchableOpacity>
 
