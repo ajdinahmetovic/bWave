@@ -6,7 +6,8 @@ import { Font } from 'expo';
 import DrawerContainer from "./DrawerContainer";
 import MusicPlayer from "./components/MusicPlayer";
 import Chart from "./components/Chart";
-import MusicPlayer1 from './components/MusicPlayer1'
+import WaveCatch from "./components/WaveCatch";
+import MusicPlayer1 from "./components/MusicPlayer1";
 
 
 var width = Dimensions.get('window').width;
@@ -21,12 +22,19 @@ const Routes = createStackNavigator ({
     MusicPlayer: {
         screen: MusicPlayer
     },
-    MusicPlayer1: {
-      screen: MusicPlayer1
-    },
+
     Chart: {
         screen: Chart
-    }
+    },
+
+    WaveCatch: {
+        screen: WaveCatch
+    },
+
+    MusicPlayer1: {
+        screen: MusicPlayer1
+    },
+
 
 
 

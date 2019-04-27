@@ -37,12 +37,12 @@ export default class HamburgerMenu extends React.Component {
 
                 <View style={styles.containerW}>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity  onPress={() =>  this.props.openCatch()}>
                     <Text style={styles.txtStyle}>
-                        Deezer Flow
+                        Wave Catch
                     </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() =>  this.props.openFav()}>
 
                     <Text style={styles.txtStyle}>
                         Favorite

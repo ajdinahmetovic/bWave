@@ -13,6 +13,7 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-drawer": "^2.5.1",
+    "react-native-pulse": "^1.0.7",
     "react-native-slider": "^0.11.0",
     "react-native-svg-charts": "^5.2.0",
     "react-navigation": "^3.9.1"

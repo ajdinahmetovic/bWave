@@ -27,6 +27,11 @@ export default class DrawerContainer extends React.Component {
         this.openControlPanel = this.openControlPanel.bind(this);
         this.closeControlPanel = this.closeControlPanel.bind(this);
         this.playMusic = this.playMusic.bind(this);
+        this.openCatch = this.openCatch.bind(this);
+        this.openFav = this.openFav.bind(this);
+
+
+
 
     }
 
@@ -68,21 +73,24 @@ export default class DrawerContainer extends React.Component {
                     type="static"
                     tweenDuration={400}
                     ref={(ref) => this._drawer = ref}
-                    content={<HamburgerMenu closeNav={this.closeControlPanel}/>}
+                    content={<HamburgerMenu openFav={this.openFav} state={this.state.isOpened} openNav={this.openControlPanel} openCatch={this.openCatch} closeNav={this.closeControlPanel}/>}
                     openDrawerOffset={100}
                     styles={drawerStyles}>
-                    <MainView musicPlay={this.playMusic} state={this.state.isOpened} openNav={this.openControlPanel}/>
+                    <MainView  musicPlay={this.playMusic} state={this.state.isOpened} openNav={this.openControlPanel}/>
                 </Drawer>
             </View>
         );
     }
 
-
     playMusic(){
         this.props.navigation.replace('MusicPlayer1')
     }
-
-
+    openCatch(){
+        this.props.navigation.replace('WaveCatch')
+    }
+    openFav(){
+        this.props.navigation.replace('MusicPlayer')
+    }
 }
 
 
