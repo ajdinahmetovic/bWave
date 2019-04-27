@@ -54,6 +54,7 @@ export default class Chart extends React.Component {
 
         firebase.database().ref("dev").on("value", result => {
             if (result.val() != null) {
+                console.log(result.val())
 
                 let sum = result.val().iee_chan_af3 + result.val().iee_chan_af4 + result.val().iee_chan_pz + result.val().iee_chan_t7 + result.val().iee_chan_t8;
 

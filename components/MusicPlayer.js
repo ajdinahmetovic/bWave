@@ -40,7 +40,8 @@ export default class MusicPlayer extends React.Component {
       image: null,
       title: null,
       artist: null,
-      currentTime: 0
+      currentTime: 0,
+      s: 0
     };
 
     firebase
@@ -75,7 +76,8 @@ export default class MusicPlayer extends React.Component {
 
                 this.audio.unloadAsync().then(() => {
                     this.audio.loadAsync({uri: this.data[this.data.songs[this.index]].deezerData.preview}).then(() => {
-                        this.audio.playAsync();
+                        this.audio.playAsync()
+                        this.setState({s: 0})
                     })
                 })
 
@@ -126,6 +128,16 @@ export default class MusicPlayer extends React.Component {
             }})
         }
     })
+  }
+
+  pressed = () => {
+      if (this.state.s == 0) {
+          this.setState({s: 1})
+          this.audio.pauseAsync();
+      } else {
+          this.setState({s: 0})
+          this.audio.playAsync();
+      }
   }
 
   render() {
@@ -260,10 +272,11 @@ export default class MusicPlayer extends React.Component {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ marginLeft: 18, marginRight: 18 }}>
+          <TouchableOpacity style={{ marginLeft: 18, marginRight: 18 }}
+          onPress={this.pressed}>
             <Image
               style={{ width: 60, height: 60 }}
-              source={require("../assets/playIco.png")}
+              source={this.state.s == 1 ? require("../assets/playIco.png") : require("../assets/playIco.png")}
             />
           </TouchableOpacity>
 

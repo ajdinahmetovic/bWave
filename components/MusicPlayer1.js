@@ -43,12 +43,74 @@ export default class MusicPlayer extends React.Component {
       currentTime: 0
     };
 
-    firebase
+    firebase.database().ref("dev").on("value", result => {
+      if (result.val() != null) {
+
+          let sum = result.val().iee_chan_af3 + result.val().iee_chan_af4 + result.val().iee_chan_pz + result.val().iee_chan_t7 + result.val().iee_chan_t8;
+
+          let value = Math.round(100 * (sum / 20))
+
+          this.setState({status: {
+              value: value,
+              color: (value >= 80 ? "green" : (value >= 50 ? "orange" : "red"))
+          }})
+        }
+    })
 
     firebase.database().ref("/").once("value", result => {
         if (result.val() != null) {
           this.data = result.val();
 
+          let minIndex = 0
+          for (let i = 1; i < 22; i++) {
+            if (
+              Math.abs(this.data.met.eng - this.data[this.data.songs[i]].met[3].eng) + 
+                Math.abs(this.data.met.exc - this.data[this.data.songs[i]].met[3].exc) + 
+                  Math.abs(this.data.met.foc - this.data[this.data.songs[i]].met[3].foc) +
+                    Math.abs(this.data.met.int - this.data[this.data.songs[i]].met[3].int) +
+                      Math.abs(this.data.met.lex - this.data[this.data.songs[i]].met[3].lex) +  
+                        Math.abs(this.data.met.rel - this.data[this.data.songs[i]].met[3].rel) +  
+                          Math.abs(this.data.met.str - this.data[this.data.songs[i]].met[3].str)
+              <
+              Math.abs(this.data.met.eng - this.data[this.data.songs[minIndex]].met[3].eng) + 
+                Math.abs(this.data.met.exc - this.data[this.data.songs[minIndex]].met[3].exc) + 
+                  Math.abs(this.data.met.foc - this.data[this.data.songs[minIndex]].met[3].foc) +
+                    Math.abs(this.data.met.int - this.data[this.data.songs[minIndex]].met[3].int) +
+                      Math.abs(this.data.met.lex - this.data[this.data.songs[minIndex]].met[3].lex) +  
+                        Math.abs(this.data.met.rel - this.data[this.data.songs[minIndex]].met[3].rel) +  
+                          Math.abs(this.data.met.str - this.data[this.data.songs[minIndex]].met[3].str)
+            ) {
+              minIndex = i;
+            }
+          }
+
+
+          this.audio.setOnPlaybackStatusUpdate(update => {
+            if (update.didJustFinish && this.index < 22) {
+                this.index += 1
+
+                if (this.index < 0) this.index = 0
+
+                this.audio.unloadAsync().then(() => {
+                    this.audio.loadAsync({uri: this.data[this.data.songs[this.index]].deezerData.preview}).then(() => {
+                        this.audio.playAsync();
+                    })
+                })
+
+                this.setState({
+                    currentTime: 0,
+                    image: this.data[this.data.songs[this.index]].deezerData.album.cover,
+                    title: this.data[this.data.songs[this.index]].deezerData.title,
+                    artist: this.data[this.data.songs[this.index]].deezerData.artist.name
+                })
+            }
+
+            this.state.currentTime = update.positionMillis
+            this.setState({currentTime: update.positionMillis})
+
+            // console.log(this.state.currentTime)
+          });
+          /*
           this.data.songs.sort((a, b) => {
             let valA = 0;
             let valB = 0;
@@ -108,24 +170,11 @@ export default class MusicPlayer extends React.Component {
             .then(() => {
               this.audio.playAsync();
             });
-
+*/
         }
       });
 
-      firebase.database().ref("dev").on("value", result => {
-        if (result.val() != null) {
-            console.log(result.val())
-
-            let sum = result.val().iee_chan_af3 + result.val().iee_chan_af4 + result.val().iee_chan_pz + result.val().iee_chan_t7 + result.val().iee_chan_t8;
-
-            let value = Math.round(100 * (sum / 20))
-
-            this.setState({status: {
-                value: value,
-                color: (value >= 80 ? "green" : (value >= 50 ? "orange" : "red"))
-            }})
-        }
-    })
+      
   }
 
   render() {
